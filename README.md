@@ -63,17 +63,31 @@ Visit <https://platform.minimax.io/user-center/basic-information/interface-key>,
 
 ## How the agent loop works
 
-```
-┌──────────┐  POST /api/chat   ┌─────────────┐  /v1/chat/completions   ┌──────────┐
-│  Browser │ ───────────────▶  │  Express    │ ───────────────────────▶ │ MiniMax  │
-│  (Astryx)│ ◀─── SSE ───────  │  agent loop │ ◀──── stream ────────── │   M3     │
-└──────────┘                  └─────────────┘                          └──────────┘
-                                       │
-                                       │ execute tool calls
-                                       ▼
-                               ┌─────────────┐
-                               │ local tools │
-                               └─────────────┘
+```mermaid
+flowchart LR
+  Browser["Browser<br/>(Astryx UI)"] -- "POST /api/chat" --> Loop
+  Loop -- "SSE: text / tool_call /<br/>tool_result / done" --> Browser
+  Loop -- "/v1/chat/completions" --> M3["MiniMax M3"]
+  M3 -- "stream chunks" --> Loop
+  Loop -- "execute" --> Tools
+  subgraph Tools ["Local tools (26 native + MCP)"]
+    direction TB
+    FS["Filesystem<br/>fs / file-ops / archive / pdf"]
+    Shell["Shell & runtime<br/>exec_command / run_python"]
+    Search["Search & code<br/>code_search / format_code"]
+    System["System & git<br/>list_processes / git_query"]
+    Media["Media<br/>image_generate / transcribe_audio"]
+    BUILT["Built-ins<br/>get_current_time / calculate"]
+    MCP["MCP servers<br/>(e.g. web_search)"]
+  end
+  Tools -- "JSON result" --> Loop
+
+  classDef upstream fill:#1877f2,color:#fff,stroke:#1877f2
+  classDef model fill:#7c3aed,color:#fff,stroke:#7c3aed
+  classDef tools fill:#f5f5f5,color:#111827,stroke:#9ca3af
+  class Browser upstream
+  class M3 model
+  class FS,Shell,Search,System,Media,BUILT,MCP tools
 ```
 
 The server keeps an agentic loop alive until the model emits an assistant message **without** `tool_calls` (or it hits a safety cap of 6 rounds). Tool outputs are fed back into the conversation so the model can react.
