@@ -1,0 +1,21 @@
+CREATE TABLE "minimax_keys" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"secret" text NOT NULL,
+	"key_hash" text NOT NULL,
+	"key_prefix" text NOT NULL,
+	"key_hint" text,
+	"status" text DEFAULT 'active' NOT NULL,
+	"requests_total" bigserial NOT NULL,
+	"tokens_in_total" bigserial NOT NULL,
+	"tokens_out_total" bigserial NOT NULL,
+	"last_used_at" timestamp with time zone,
+	"last_error_at" timestamp with time zone,
+	"last_error_msg" text,
+	"consecutive_errors" integer DEFAULT 0 NOT NULL,
+	"rate_limited_until" timestamp with time zone,
+	"is_bootstrap" boolean DEFAULT false NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "minimax_keys_hash_unique" UNIQUE("key_hash"),
+	CONSTRAINT "minimax_keys_status_check" CHECK ("minimax_keys"."status" IN ('active','disabled'))
+);

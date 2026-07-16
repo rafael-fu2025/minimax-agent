@@ -1,0 +1,67 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+*.log
+
+# TypeScript incremental build cache (tsc -b).
+tsconfig.tsbuildinfo
+tsconfig.node.tsbuildinfo
+
+# Vite / TSC outputs.
+*.tsbuildinfo
+*.d.ts.bak
+
+# The agent's sandbox MUST live outside the project (see .env.example). If
+# anyone ever re-points TOOL_SANDBOX_ROOT back inside the repo, refuse to
+# commit it.
+/workspace
+C:/Users/Rafael/agent-sandbox
+
+# --- tsc -b emit artifacts ----------------------------------------------
+vite.config.js
+vite.config.d.ts
+
+# --- one-shot patch scripts written by automation -----------------------
+# These are short-lived CJS files used as a workaround for PowerShell
+# single-quote parsing. They should never end up in source control.
+tools/_*.cjs
+tools/_*.js
+
+# --- Vite build output (already covered by dist, kept for clarity) ------
+*.tsbuildinfo
+*.d.ts.bak
+
+# --- Claude / Codex local settings (per-user) ---------------------------
+.claude/settings.local.json
+.codex
+
+# --- Logs ---------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- OS junk -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --- Node / Vite / TypeScript defaults ---------------------------------
+node_modules
+dist
+.vite
+.cache
+
+# --- Editor local state ------------------------------------------------
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# --- The agent sandbox MUST live outside the project (see .env.example).
+# Refuse to commit if someone ever re-points TOOL_SANDBOX_ROOT inside the
+# repo. The sandbox can be a sibling path on the dev machine.
+/workspace
+C:/Users/Rafael/agent-sandbox

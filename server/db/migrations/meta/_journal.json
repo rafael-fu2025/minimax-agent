@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1783221741309,
+      "tag": "0000_special_lake",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1783224644390,
+      "tag": "0001_mighty_piledriver",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783230000000,
+      "tag": "0002_complex_texas_twister",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783240000000,
+      "tag": "0003_message_attachments",
+      "breakpoints": true
+    }
+  ]
+}

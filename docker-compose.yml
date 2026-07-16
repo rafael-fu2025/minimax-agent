@@ -1,0 +1,31 @@
+# Local development PostgreSQL with pgvector preinstalled.
+# pgvector is unused in this slice but the image is identical to plain
+# Postgres 16, so we get it for free when we add memory/RAG in the next slice.
+#
+# Volume is a NAMED volume (managed by Docker, not bind-mounted to the host)
+# because the repo lives under OneDrive. A bind mount here would trigger
+# sync conflicts on the postgres data files.
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: astryx_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: astryx
+    ports:
+      # 5433 (host) -> 5432 (container) avoids clashes with any local Postgres.
+      - "5433:5432"
+    volumes:
+      - astryx_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d astryx"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  astryx_pgdata:
+    name: astryx_pgdata
