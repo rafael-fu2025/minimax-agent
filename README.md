@@ -1,5 +1,22 @@
 # Astryx × MiniMax Agent
 
+### Built with
+
+<div align="center">
+
+  ![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+  ![Node >=20](https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)
+  ![React 19](https://img.shields.io/badge/React-19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+  ![Vite 6](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=FFD62E)
+  ![Express](https://img.shields.io/badge/Express-4-000000?style=flat-square&logo=express&logoColor=white)
+  ![PostgreSQL 16](https://img.shields.io/badge/Postgres-16%2Bpgvector-336791?style=flat-square&logo=postgresql&logoColor=white)
+  ![Vitest](https://img.shields.io/badge/Vitest-2.x-6E9F18?style=flat-square&logo=vitest&logoColor=yellow)
+  ![Astryx](https://img.shields.io/badge/UI-Astryx-1877F2?style=flat-square)
+  ![MCP](https://img.shields.io/badge/Model%20Context%20Protocol-compatible-0098A5?style=flat-square)
+
+</div>
+
 An agentic chatbot with a streaming UI built on [**Astryx**](https://github.com/facebook/astryx) — Meta's open-source React + StyleX design system — and a small Express backend that talks to [**MiniMax**](https://platform.minimax.io/) via its OpenAI-compatible Chat Completions API. The app also ships with a sidebar **Workspace Explorer** that lets you browse, create, rename, upload, and delete files in the same sandbox the agent uses — every destructive action is reversible via an **Undo** toast.
 
 The agent has access to a native toolset of **26 tools** grouped by area. The full inventory is in [Tools](#tools); the most-used defaults are:
